@@ -2,7 +2,9 @@ import { Product } from "./product"
 
 export type Basket = {
     baseketId: string
-    items: Item[]
+    items: Item[],
+    clientSecret?: string,
+    paymentIntentId?: string
   }
   
   export class Item  {
