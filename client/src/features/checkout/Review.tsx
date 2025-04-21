@@ -36,14 +36,26 @@ export default function Review({confirmationToken}: Props) {
                         Shipping address
                     </Typography>
                     <Typography component='dd' mt={1} color='textSecondary'>
-                        {addressString()}
+                    {/* {confirmationToken?.shipping ? addressString({
+                        name: confirmationToken.shipping.name ?? '',
+                        line1: confirmationToken.shipping.address?.line1 ?? '',
+                        line2: confirmationToken.shipping.address?.line2 ?? '',
+                        city: confirmationToken.shipping.address?.city ?? '',
+                        state: confirmationToken.shipping.address?.state ?? '',
+                        postal_code: confirmationToken.shipping.address?.postal_code ?? '',
+                        country: confirmationToken.shipping.address?.country ?? ''
+                    }) : ''}   */}
+                    {addressString()}
                     </Typography>
 
                     <Typography component='dt' fontWeight='medium'>
                         Payment details
                     </Typography>
                     <Typography component='dd' mt={1} color='textSecondary'>
-                        {paymentString()}
+                    {/* {confirmationToken?.payment_method_preview?.card 
+                        ? paymentString(confirmationToken.payment_method_preview.card as PaymentSummary) 
+                        : ''} */}
+                    {paymentString()}
                     </Typography>
                 </dl>
             </Box>
