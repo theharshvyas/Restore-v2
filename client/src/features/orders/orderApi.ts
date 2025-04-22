@@ -13,7 +13,7 @@ export const orderApi = createApi({
         }),
         fetchOrderDetails: builder.query<Order, number>({
             query: (id) => `orders/${id}`,
-            providesTags: (result, error, id) => [{ type: 'orders', id }]
+            providesTags: (_result, _error, id) => [{ type: 'orders', id }]
         }),
         createOrder: builder.mutation<Order, CreateOrder>({
             query: (order) => ({
