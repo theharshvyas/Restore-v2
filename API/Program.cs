@@ -10,7 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
  builder.Services.AddControllers();
  builder.Services.AddDbContext<StoreContext>(opt => {
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseSqlServer(
+      builder.Configuration.GetConnectionString("DefaultConnection"), 
+      options => options.EnableRetryOnFailure());
  });
  builder.Services.AddCors();
  builder.Services.AddTransient<ExceptionMiddleware>();
