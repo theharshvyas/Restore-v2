@@ -11,11 +11,15 @@ import { useEffect } from "react"
 import { useCreateProductMutation, useUpdateProductMutation } from "./adminApi"
 import { handleApiError } from "../../app/lib/util"
 
+type FileWithPreview = File & {
+    preview: string;
+};
+
 type Props = {
     setEditMode: (value: boolean) => void;
     product: Product | null;
     refetch: () => void;
-    setSelectedProduct: (value: Product) => void;
+    setSelectedProduct: (value: Product | null) => void;
 }
 
 export default function ProductForm({setEditMode, product, refetch, setSelectedProduct}: Props) {
@@ -25,15 +29,19 @@ export default function ProductForm({setEditMode, product, refetch, setSelectedP
     })
     const [createProduct] = useCreateProductMutation();
     const [updateProduct] = useUpdateProductMutation();
-    const watchFile = watch('file')
+    const watchFile = watch('file') as FileWithPreview;
 
     useEffect(() => {
-        if(product) reset(product);
+        if(product) {
+            reset(product);
+        } else{
+            reset();
+        }
         
         return () => {
             if(watchFile) URL.revokeObjectURL(watchFile.preview)
         }
-    },[product, reset, watchFile])
+    },[product, reset])
 
     const createFormData = (items: FieldValues) => {
         const formData = new FormData();
@@ -111,7 +119,10 @@ export default function ProductForm({setEditMode, product, refetch, setSelectedP
                     </Grid2>
                 </Grid2>
                 <Box display='flex' justifyContent='space-between' sx={{mt: 3}}>
-                    <Button variant='contained' color='inherit' onClick={() => setEditMode(false)}>Cancel</Button>
+                    <Button variant='contained' color='inherit' onClick={() => {
+                        setEditMode(false);
+                        setSelectedProduct(null);
+                    }}>Cancel</Button>
                     <Button variant='contained' color='success' type='submit' loading={isSubmitting}>Submit</Button>
                 </Box>
             </form>
