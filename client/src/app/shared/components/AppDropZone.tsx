@@ -8,13 +8,17 @@ type Props<T extends FieldValues> = {
     name: keyof T
 } & UseControllerProps<T>
 
+type FileWithPreview = File & {
+    preview: string;
+}
+
 export default function AppDropZone<T extends FieldValues>(props: Props<T>) {
 
     const { fieldState, field } = useController({ ...props });
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         if(acceptedFiles.length > 0){
-            const fileWithPreview = Object.assign(acceptedFiles[0], {
+            const fileWithPreview: FileWithPreview = Object.assign(acceptedFiles[0], {
                 preview: URL.createObjectURL(acceptedFiles[0])
             });
 
