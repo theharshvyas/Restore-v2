@@ -11,4 +11,5 @@ public class Product
     public required string Brand { get; set; }
     public int BrandId { get; set; }
     public int QuantityInStock { get; set; }
+    public string? PublicId { get; set; }
 }
